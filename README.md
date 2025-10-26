@@ -4,17 +4,23 @@ A comprehensive Zed editor extension that integrates OpenSpec's spec-driven deve
 
 ## 🚀 Quick Start
 
+### macOS (Recommended for Intel Mac)
 ```bash
-# Clone and build
+git clone https://github.com/mstanton/zed-openspec-extension
+cd zed-openspec-extension
+./install-macos.sh  # macOS-optimized installer
+# Then: Cmd+Shift+P → "zed: install dev extension" → select this directory
+```
+
+### Linux / Other Platforms
+```bash
 git clone https://github.com/mstanton/zed-openspec-extension
 cd zed-openspec-extension
 ./install.sh
-
-# Install in Zed
-# Cmd+Shift+P → "zed: install dev extension" → select this directory
+# Then: Cmd+Shift+P → "zed: install dev extension" → select this directory
 ```
 
-**📖 Full installation guide:** [INSTALL.md](INSTALL.md)
+**📖 Full guides:** [INSTALL.md](INSTALL.md) • [macOS Troubleshooting](INSTALL_MACOS.md)
 
 ---
 
