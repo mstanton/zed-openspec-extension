@@ -33,8 +33,45 @@ echo ""
 echo "Step 2: Checking WASM target..."
 if ! rustup target list | grep -q "wasm32-wasip1 (installed)"; then
     echo "⚠️  WASM target not installed. Installing now..."
-    rustup target add wasm32-wasip1
-    echo "✅ WASM target installed"
+    echo ""
+    echo "This may take a moment and requires internet connectivity..."
+    echo ""
+
+    # Try installing with retry logic
+    MAX_RETRIES=3
+    RETRY_COUNT=0
+
+    while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+        if rustup target add wasm32-wasip1; then
+            echo "✅ WASM target installed"
+            break
+        else
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo ""
+                echo "⚠️  Installation failed. Retrying ($RETRY_COUNT/$MAX_RETRIES)..."
+                echo "   Waiting 3 seconds..."
+                sleep 3
+            else
+                echo ""
+                echo "❌ Failed to install WASM target after $MAX_RETRIES attempts"
+                echo ""
+                echo "This is likely a network connectivity issue. Solutions:"
+                echo ""
+                echo "1. Check your internet connection"
+                echo "2. Try again in a few minutes (server might be busy)"
+                echo "3. Check if you're behind a proxy/firewall"
+                echo "4. Try updating rustup first: rustup update"
+                echo "5. Manual install: rustup target add wasm32-wasip1"
+                echo ""
+                echo "If the problem persists, you can build without the release flag:"
+                echo "  cargo build --target wasm32-wasip1"
+                echo ""
+                echo "For more help, see: https://github.com/rust-lang/rustup/issues"
+                exit 1
+            fi
+        fi
+    done
 else
     echo "✅ WASM target already installed"
 fi
@@ -56,6 +93,13 @@ echo ""
 echo "Step 4: Building extension..."
 echo "This may take a few minutes on first build..."
 echo ""
+
+# Check if Cargo.lock exists, if not this is first build
+if [ ! -f "Cargo.lock" ]; then
+    echo "First build detected - this will download dependencies..."
+    echo "Expected time: 2-5 minutes depending on your connection"
+    echo ""
+fi
 
 cargo build --release --target wasm32-wasip1
 
@@ -102,6 +146,8 @@ else
     echo ""
     echo "3. Missing system dependencies"
     echo "   Solution: Make sure you have a C compiler (gcc/clang)"
+    echo ""
+    echo "For detailed troubleshooting, see INSTALL.md"
     echo ""
     exit 1
 fi

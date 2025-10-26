@@ -2,6 +2,21 @@
 
 ## TL;DR - Quick Start
 
+### macOS (Intel or Apple Silicon)
+```bash
+# 1. Clone the repository
+git clone https://github.com/mstanton/zed-openspec-extension
+cd zed-openspec-extension
+
+# 2. Run the macOS-specific installation script
+./install-macos.sh
+
+# 3. In Zed: Cmd+Shift+P → "zed: install dev extension" → select this directory
+```
+
+**📖 Having issues on Intel Mac?** See [INSTALL_MACOS.md](INSTALL_MACOS.md) for troubleshooting.
+
+### Linux / Other Platforms
 ```bash
 # 1. Clone the repository
 git clone https://github.com/mstanton/zed-openspec-extension
