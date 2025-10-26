@@ -21,35 +21,46 @@ A comprehensive Zed editor extension that integrates OpenSpec's spec-driven deve
 
 ## Installation
 
-### Prerequisites
-
-1. **Rust** (for building the extension)
-   ```bash
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   rustup target add wasm32-wasi
-   ```
-
-2. **OpenSpec CLI**
-   ```bash
-   npm install -g @fission-ai/openspec@latest
-   ```
-
-3. **Zed Editor**
-   Download from [zed.dev](https://zed.dev)
-
-### Building
+### Quick Install (Recommended)
 
 ```bash
 # Clone the repository
 git clone https://github.com/mstanton/zed-openspec-extension
 cd zed-openspec-extension
 
-# Build the extension
-cargo build --release --target wasm32-wasi
+# Run the installation script (handles everything)
+./install.sh
 
-# Install in Zed (dev mode)
-# In Zed: Cmd+Shift+P → "zed: install dev extension" → select this directory
+# Then in Zed: Cmd+Shift+P → "zed: install dev extension" → select this directory
 ```
+
+**See [INSTALL.md](INSTALL.md) for detailed installation instructions and troubleshooting.**
+
+### Manual Installation
+
+**Prerequisites:**
+1. **Rust** - [Install from rustup.rs](https://rustup.rs)
+2. **OpenSpec CLI** - `npm install -g @fission-ai/openspec@latest`
+3. **Zed Editor** - [Download from zed.dev](https://zed.dev)
+
+**Build Steps:**
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/mstanton/zed-openspec-extension
+cd zed-openspec-extension
+
+# 2. Add WASM target (IMPORTANT!)
+rustup target add wasm32-wasip1
+
+# 3. Build the extension (THIS STEP IS REQUIRED)
+cargo build --release --target wasm32-wasip1
+
+# 4. Install in Zed
+# Open Zed → Cmd+Shift+P → "zed: install dev extension" → select this directory
+```
+
+**⚠️ Important:** You **must** build the extension before installing it in Zed. The extension is compiled to WebAssembly and cannot run without building first.
 
 ## Usage
 
