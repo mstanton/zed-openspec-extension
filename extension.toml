@@ -1,0 +1,18 @@
+id = "openspec"
+name = "OpenSpec"
+version = "0.1.0"
+schema_version = 1
+authors = ["OpenSpec Contributors"]
+description = "OpenSpec integration with LLM-powered code generation, real-time validation, and complete audit trails for spec-driven development"
+repository = "https://github.com/mstanton/zed-openspec-extension"
+homepage = "https://github.com/Fission-AI/OpenSpec"
+
+[commands]
+"openspec:init" = "Initialize OpenSpec in current workspace"
+"openspec:new-proposal" = "Create a new OpenSpec change proposal"
+"openspec:apply-change" = "Generate code for a change using LLM"
+"openspec:archive-change" = "Archive completed change"
+"openspec:view-audit" = "View audit trail of generated code"
+"openspec:validate-file" = "Manually validate current spec file"
+"openspec:show-coverage" = "Show spec coverage analysis"
+"openspec:list-changes" = "List all OpenSpec changes"
