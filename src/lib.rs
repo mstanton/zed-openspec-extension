@@ -1,63 +1,32 @@
 use zed_extension_api as zed;
 
-mod commands;
-mod utils;
-
-use commands::CommandHandler;
-use utils::config::ExtensionConfig;
-
-/// Main extension struct
-pub struct OpenSpecExtension {
-    command_handler: CommandHandler,
-    config: ExtensionConfig,
-}
+/// Main extension struct for OpenSpec integration
+///
+/// Phase 1 Note: Zed extensions currently support language servers and grammar.
+/// Command palette integration requires slash commands (/) which will be added
+/// in a future Zed update. For now, this extension provides the foundation
+/// for OpenSpec integration that will be activated when command support is added.
+pub struct OpenSpecExtension;
 
 impl zed::Extension for OpenSpecExtension {
+    /// Initialize the extension
     fn new() -> Self {
-        // Initialize extension
-        eprintln!("[OpenSpec] Extension initializing...");
-
-        let config = ExtensionConfig::load_or_default();
-        let command_handler = CommandHandler::new(config.clone());
-
-        eprintln!("[OpenSpec] Extension initialized successfully");
-
-        Self {
-            command_handler,
-            config,
-        }
+        eprintln!("[OpenSpec] Extension initialized");
+        eprintln!("[OpenSpec] Note: Full command support coming in Phase 2");
+        eprintln!("[OpenSpec] Current: Foundation and LSP preparation");
+        Self
     }
 
-    fn command(
-        &mut self,
-        command: String,
-        args: Vec<String>,
-        worktree: &zed::Worktree,
-    ) -> Result<String, String> {
-        eprintln!("[OpenSpec] Command received: {} with args: {:?}", command, args);
-
-        // Handle command
-        match self.command_handler.handle_command(&command, args, worktree) {
-            Ok(result) => {
-                eprintln!("[OpenSpec] Command succeeded: {}", command);
-                Ok(result)
-            }
-            Err(e) => {
-                eprintln!("[OpenSpec] Command failed: {} - Error: {}", command, e);
-                Err(format!("OpenSpec Error: {}", e))
-            }
-        }
-    }
-
+    /// Provide language server configuration
+    ///
+    /// This will be used in Phase 2 to provide real-time spec validation
     fn language_server_command(
         &mut self,
-        language_server_id: &zed::LanguageServerId,
-        worktree: &zed::Worktree,
-    ) -> Result<zed::Command, String> {
-        eprintln!("[OpenSpec] Language server command requested for: {:?}", language_server_id);
-
-        // LSP server will be implemented in Phase 2
-        Err("LSP server not yet implemented".to_string())
+        _language_server_id: &zed::LanguageServerId,
+        _worktree: &zed::Worktree,
+    ) -> zed::Result<zed::Command> {
+        // Phase 2 will implement LSP server for spec validation
+        Err("OpenSpec LSP server not yet implemented - Coming in Phase 2".to_string())
     }
 }
 
